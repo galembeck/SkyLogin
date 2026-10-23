@@ -1,0 +1,40 @@
+# ============================================================
+#  SkyLogin - configuration
+# ============================================================
+
+storage:
+  # SQLITE (local file) or MYSQL
+  type: SQLITE
+  mysql:
+    host: localhost
+    port: 3306
+    database: skylogin
+    username: skylogin
+    password: ""
+    table: skylogin_accounts
+    pool-size: 10
+
+security:
+  # BCRYPT (recommended), SHA256 or SHA512 - nLogin compatible formats
+  hash-algorithm: BCRYPT
+  password:
+    min-length: 4
+    max-length: 32
+  max-login-attempts: 3
+  max-accounts-per-ip: 3
+
+login:
+  # Seconds the player has to log in before being kicked
+  timeout: 60
+  # Seconds between "please log in" reminders
+  message-interval: 5
+  # Hide the player and freeze movement until logged in
+  apply-blindness: true
+
+session:
+  # Skip /login when reconnecting from the same IP within this many minutes (0 = disabled)
+  duration-minutes: 10
+
+spawn:
+  # Teleport unauthenticated players to the spawn location
+  teleport-unauthenticated: true

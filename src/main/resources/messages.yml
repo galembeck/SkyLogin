@@ -1,0 +1,30 @@
+# ============================================================
+#  SkyLogin - messages ("&" color codes supported)
+# ============================================================
+
+prefix: "&b&lSkyLogin &8» &7"
+
+register:
+  request: "&7Register with &b/register <password> <password>"
+  success: "&aAccount created! Welcome to SkyMinigames."
+  already-registered: "&cYou are already registered."
+  passwords-mismatch: "&cThe passwords do not match."
+
+login:
+  request: "&7Log in with &b/login <password>"
+  success: "&aLogged in successfully!"
+  wrong-password: "&cWrong password. Attempts left: &f{attempts}"
+  not-registered: "&cYou are not registered. Use &b/register&c."
+  already-logged: "&cYou are already logged in."
+  timeout: "&cYou took too long to log in."
+  session-restored: "&aSession restored, welcome back!"
+
+password:
+  too-short: "&cYour password must have at least &f{min} &ccharacters."
+  too-long: "&cYour password must have at most &f{max} &ccharacters."
+  changed: "&aPassword changed successfully."
+
+general:
+  no-permission: "&cYou don't have permission to do that."
+  player-only: "&cOnly players can use this command."
+  reloaded: "&aConfiguration reloaded."

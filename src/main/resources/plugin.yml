@@ -1,0 +1,45 @@
+name: ${project.name}
+version: ${project.version}
+main: ${plugin.main}
+description: ${project.description}
+author: SkyMinigames
+load: STARTUP
+
+commands:
+  register:
+    description: Create your account.
+    usage: /register <password> <password>
+    aliases: [reg]
+  login:
+    description: Log in to your account.
+    usage: /login <password>
+    aliases: [l, logar]
+  logout:
+    description: Log out of your account.
+    usage: /logout
+  changepassword:
+    description: Change your password.
+    usage: /changepassword <oldPassword> <newPassword>
+    aliases: [changepass, cp]
+  unregister:
+    description: Delete your account.
+    usage: /unregister <password>
+  skylogin:
+    description: SkyLogin administration.
+    usage: /skylogin <reload|forcelogin|unregister|changepassword|info> [player]
+    aliases: [slogin]
+    permission: skylogin.admin
+
+permissions:
+  skylogin.*:
+    description: Gives access to every SkyLogin permission.
+    default: op
+    children:
+      skylogin.admin: true
+      skylogin.bypass: true
+  skylogin.admin:
+    description: Allows using /skylogin admin commands.
+    default: op
+  skylogin.bypass:
+    description: Skips the per-IP account limit.
+    default: false
