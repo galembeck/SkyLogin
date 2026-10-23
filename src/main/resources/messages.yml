@@ -1,30 +1,90 @@
 # ============================================================
-#  SkyLogin - messages ("&" color codes supported)
+#  SkyLogin - mensagens (cores com "&")
+#  Placeholders: {player}, {seconds}, {attempts}, {min}, {max}, {name}, {registered}
+#  Lines starting with <center> are centered in the chat.
 # ============================================================
 
-prefix: "&b&lSkyLogin &8» &7"
+# Text added before every chat message (empty = no prefix)
+prefix: ""
+
+# Títulos na tela. Tempos em ticks (20 ticks = 1 segundo).
+title:
+  before-register:
+    title: "&6&lSKY MINIGAMES"
+    subtitle: "&f/register <senha> <senha>"
+    fade-in: 10
+    stay: 9999
+    fade-out: 10
+  before-login:
+    title: "&6&lSKY MINIGAMES"
+    subtitle: "&f/login <senha>"
+    fade-in: 10
+    stay: 9999
+    fade-out: 10
+  after-register:
+    title: "&6&lSKY MINIGAMES"
+    subtitle: "&fConta registrada com sucesso!"
+    fade-in: 0
+    stay: 40
+    fade-out: 10
+  after-login:
+    title: "&6&lSKY MINIGAMES"
+    subtitle: "&fAutenticado com sucesso!"
+    fade-in: 0
+    stay: 40
+    fade-out: 10
 
 register:
-  request: "&7Register with &b/register <password> <password>"
-  success: "&aAccount created! Welcome to SkyMinigames."
-  already-registered: "&cYou are already registered."
-  passwords-mismatch: "&cThe passwords do not match."
+  # Shown once, when a new player joins for the first time
+  welcome:
+    - ""
+    - "    &6&lSKY MINIGAMES"
+    - ""
+    - "    &fBem-vindo! Para se registrar em nosso"
+    - "    &fservidor utilize o comando &e/register <senha> <senha>&f."
+    - ""
+  # Repeated every few seconds until the player registers
+  request: "&eRegistre-se utilizando &f/register <senha> <senha>&e."
+  usage: "&cUtilize: &f/register <senha> <senha>"
+  success: "&aConta registrada com sucesso!"
+  already-registered: "&cVocê já está registrado. Use &f/login <senha>&c."
+  passwords-mismatch: "&cAs senhas não são iguais."
+  too-many-accounts: "&cVocê atingiu o limite de &f{max} &ccontas registradas neste IP."
 
 login:
-  request: "&7Log in with &b/login <password>"
-  success: "&aLogged in successfully!"
-  wrong-password: "&cWrong password. Attempts left: &f{attempts}"
-  not-registered: "&cYou are not registered. Use &b/register&c."
-  already-logged: "&cYou are already logged in."
-  timeout: "&cYou took too long to log in."
-  session-restored: "&aSession restored, welcome back!"
+  # Shown when a registered player joins
+  welcome:
+    - ""
+    - "    &6&lSKY MINIGAMES"
+    - ""
+    - "    &fBem-vindo de volta, &e{player}&f! Para acessar"
+    - "    &fsua conta, utilize o comando &e/login <senha>&f."
+    - ""
+  request: "&eAutentique-se utilizando &f/login <senha>&e."
+  usage: "&cUtilize: &f/login <senha>"
+  success: "&aAutenticado com sucesso! Redirecionando..."
+  session-restored: "&aSessão restaurada. Bem-vindo de volta!"
+  wrong-password: "&cSenha incorreta. Tentativas restantes: &f{attempts}"
+  not-registered: "&cVocê ainda não está registrado. Use &f/register <senha> <senha>&c."
+  already-logged: "&cVocê já está logado."
 
 password:
-  too-short: "&cYour password must have at least &f{min} &ccharacters."
-  too-long: "&cYour password must have at most &f{max} &ccharacters."
-  changed: "&aPassword changed successfully."
+  too-short: "&cA senha deve ter pelo menos &f{min} &ccaracteres."
+  too-long: "&cA senha deve ter no máximo &f{max} &ccaracteres."
+  too-weak: "&cEssa senha é muito fraca. Escolha outra."
+  same-as-name: "&cA senha não pode ser igual ao seu nick."
+
+kick:
+  register-timeout: "&6&lSKY MINIGAMES\n\n&cVocê demorou muito para se registrar."
+  login-timeout: "&6&lSKY MINIGAMES\n\n&cVocê demorou muito para fazer login."
+  too-many-attempts: "&6&lSKY MINIGAMES\n\n&cVocê errou a senha muitas vezes."
+  invalid-name: "&6&lSKY MINIGAMES\n\n&cSeu nick é inválido.\n&7Use apenas letras, números e _ (3 a 16 caracteres)."
+  name-case-mismatch: "&6&lSKY MINIGAMES\n\n&cO nick &f{name} &cjá está registrado como &f{registered}&c.\n&7Entre usando exatamente &f{registered}&7."
+  already-online: "&6&lSKY MINIGAMES\n\n&cJá existe um jogador conectado com este nick."
+  antibot-verify: "&6&lSKY MINIGAMES\n\n&eVerificação anti-bot\n&7Aguarde &f{seconds} segundos &7e reconecte ao servidor."
+  database-error: "&6&lSKY MINIGAMES\n\n&cNão foi possível carregar sua conta.\n&7Tente novamente em alguns instantes."
 
 general:
-  no-permission: "&cYou don't have permission to do that."
-  player-only: "&cOnly players can use this command."
-  reloaded: "&aConfiguration reloaded."
+  processing: "&7Aguarde, processando..."
+  database-error: "&cOcorreu um erro ao acessar o banco de dados. Tente novamente."
+  player-only: "&cApenas jogadores podem usar este comando."

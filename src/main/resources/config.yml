@@ -3,38 +3,99 @@
 # ============================================================
 
 storage:
-  # SQLITE (local file) or MYSQL
+  # SQLITE (local file, no setup needed) or MYSQL (MySQL / MariaDB)
   type: SQLITE
+  table: skylogin_accounts
   mysql:
     host: localhost
     port: 3306
     database: skylogin
     username: skylogin
     password: ""
-    table: skylogin_accounts
     pool-size: 10
 
 security:
-  # BCRYPT (recommended), SHA256 or SHA512 - nLogin compatible formats
+  # Algorithm used for NEW passwords: BCRYPT (recommended) or SHA256.
+  # Existing hashes of both kinds are always accepted, so switching is safe.
   hash-algorithm: BCRYPT
   password:
     min-length: 4
     max-length: 32
+    # Passwords nobody is allowed to use (case-insensitive)
+    blocked:
+      - "123456"
+      - "12345678"
+      - "senha"
+      - "senha123"
+      - "password"
+      - "qwerty"
+  # Wrong passwords allowed before the player is kicked
   max-login-attempts: 3
+  # Accounts that can be registered from the same IP (0 = unlimited)
   max-accounts-per-ip: 3
+  # Valid nicknames
+  name-pattern: "^[a-zA-Z0-9_]{3,16}$"
+  # Hide /login and /register (and their passwords) from the server console and logs
+  hide-commands-in-console: true
 
 login:
-  # Seconds the player has to log in before being kicked
+  # Clear the player's chat when they join (before the welcome / login message)
+  clear-chat-on-join: true
+  # Seconds the player has to log in / register before being kicked
   timeout: 60
-  # Seconds between "please log in" reminders
-  message-interval: 5
-  # Hide the player and freeze movement until logged in
-  apply-blindness: true
+  # Seconds between repeated chat reminders (0 = only the message shown on join)
+  message-interval: 0
+  # Blindness effect while not logged in
+  apply-blindness: false
+  # Show the remaining time in the XP bar
+  show-countdown-in-xp-bar: true
+  # Commands allowed before logging in (without "/")
+  allowed-commands:
+    - login
+    - logar
+    - l
+    - register
+    - registrar
+    - reg
+
+sounds:
+  # Sounds are played only to the player. Use 1.8 sound names (LEVEL_UP, ORB_PICKUP, NOTE_PLING,
+  # VILLAGER_NO, NOTE_BASS, CLICK, ...) or NONE to disable one. Volume 0.0-1.0, pitch 0.5 (low) to 2.0 (high).
+  # An unknown name is reported in the console when the server starts.
+  welcome:
+    sound: NOTE_PLING
+    volume: 1.0
+    pitch: 1.0
+  register:
+    sound: LEVEL_UP
+    volume: 1.0
+    pitch: 1.0
+  login:
+    sound: LEVEL_UP
+    volume: 1.0
+    pitch: 1.0
+  wrong-password:
+    sound: VILLAGER_NO
+    volume: 1.0
+    pitch: 1.0
+  # Errors such as "passwords don't match" or "password too short"
+  error:
+    sound: NOTE_BASS
+    volume: 1.0
+    pitch: 0.8
 
 session:
-  # Skip /login when reconnecting from the same IP within this many minutes (0 = disabled)
-  duration-minutes: 10
+  # Reconnecting from the same IP within this many minutes skips /login.
+  # 0 = disabled: every player must always use /login.
+  duration-minutes: 0
 
-spawn:
-  # Teleport unauthenticated players to the spawn location
-  teleport-unauthenticated: true
+antibot:
+  enabled: true
+  # When more than "max-new-players" NEW (unregistered) players join within "window-seconds",
+  # the server enters attack mode for "attack-duration-seconds".
+  max-new-players: 6
+  window-seconds: 10
+  attack-duration-seconds: 60
+  # In attack mode new players are kicked and must reconnect after this many seconds to be verified.
+  # Bots usually never reconnect. Registered players are never affected.
+  rejoin-delay-seconds: 5

@@ -10,12 +10,9 @@
         },
         {
             "label": "Deploy to server",
-            "type": "shell",
-            "command": "powershell",
-            "args": [
-                "-NoProfile", "-Command",
-                "$dir = 'E:\\.programming\\Projects\\.minecraft\\.servers\\SkyMinigames\\plugins'; Remove-Item \"$dir\\SkyLogin-*.jar\" -ErrorAction SilentlyContinue; Copy-Item 'target\\SkyLogin-*.jar' $dir; Write-Host 'Copied to' $dir"
-            ],
+            "type": "process",
+            "command": "powershell.exe",
+            "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}\\scripts\\deploy.ps1"],
             "dependsOn": "Build plugin",
             "problemMatcher": []
         }

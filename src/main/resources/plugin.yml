@@ -8,27 +8,12 @@ load: STARTUP
 commands:
   register:
     description: Create your account.
-    usage: /register <password> <password>
-    aliases: [reg]
+    usage: /register <senha> <senha>
+    aliases: [registrar, reg]
   login:
     description: Log in to your account.
-    usage: /login <password>
-    aliases: [l, logar]
-  logout:
-    description: Log out of your account.
-    usage: /logout
-  changepassword:
-    description: Change your password.
-    usage: /changepassword <oldPassword> <newPassword>
-    aliases: [changepass, cp]
-  unregister:
-    description: Delete your account.
-    usage: /unregister <password>
-  skylogin:
-    description: SkyLogin administration.
-    usage: /skylogin <reload|forcelogin|unregister|changepassword|info> [player]
-    aliases: [slogin]
-    permission: skylogin.admin
+    usage: /login <senha>
+    aliases: [logar, l]
 
 permissions:
   skylogin.*:
