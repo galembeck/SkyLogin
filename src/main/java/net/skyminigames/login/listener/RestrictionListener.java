@@ -30,6 +30,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerShearEntityEvent;
 
@@ -73,7 +74,9 @@ public final class RestrictionListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onMove(PlayerMoveEvent event) {
-        if (!blocked(event.getPlayer().getUniqueId())) {
+        // In 1.8 PlayerTeleportEvent shares PlayerMoveEvent's handlers; undoing it would cancel
+        // plugin teleports such as EssentialsSpawn's spawn-on-join
+        if (event instanceof PlayerTeleportEvent || !blocked(event.getPlayer().getUniqueId())) {
             return;
         }
         Location from = event.getFrom();

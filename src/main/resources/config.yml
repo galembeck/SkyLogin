@@ -49,6 +49,8 @@ login:
   apply-blindness: false
   # Show the remaining time in the XP bar
   show-countdown-in-xp-bar: true
+  # Sidebar scoreboard with login instructions (text in messages.yml, "scoreboard")
+  show-scoreboard: true
   # Commands allowed before logging in (without "/")
   allowed-commands:
     - login
@@ -99,3 +101,12 @@ antibot:
   # In attack mode new players are kicked and must reconnect after this many seconds to be verified.
   # Bots usually never reconnect. Registered players are never affected.
   rejoin-delay-seconds: 5
+
+bungeecord:
+  # Network mode (BungeeCord + SkyProxy): after /login or /register, unlock the other servers
+  # and send the player to "send-to". true, false, or auto (on when spigot.yml has "bungeecord: true").
+  enabled: auto
+  # Server name from BungeeCord's config.yml
+  send-to: lobby
+  # Wait before sending (20 ticks = 1 second), so "Redirecionando..." can be read
+  delay-ticks: 20

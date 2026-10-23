@@ -3,6 +3,7 @@ package net.skyminigames.login;
 import lombok.Getter;
 import net.skyminigames.login.auth.AuthManager;
 import net.skyminigames.login.auth.PasswordService;
+import net.skyminigames.login.bungee.BungeeBridge;
 import net.skyminigames.login.command.LoginCommand;
 import net.skyminigames.login.command.RegisterCommand;
 import net.skyminigames.login.config.PluginConfig;
@@ -31,6 +32,8 @@ public final class SkyLogin extends JavaPlugin {
     private AntiBot antiBot;
     private AuthManager authManager;
     private CommandLogFilter commandLogFilter;
+    /** {@code null} unless bungeecord.enabled (network mode). */
+    private BungeeBridge bungeeBridge;
 
     @Override
     public void onEnable() {
@@ -52,6 +55,10 @@ public final class SkyLogin extends JavaPlugin {
                     + " database. Players will be refused until this is fixed.", e);
         }
 
+        Boolean bungee = pluginConfig.getBungeeEnabled();
+        if (bungee != null ? bungee : getServer().spigot().getConfig().getBoolean("settings.bungeecord")) {
+            bungeeBridge = new BungeeBridge(this);
+        }
         authManager = new AuthManager(this);
 
         PluginManager plugins = getServer().getPluginManager();
@@ -84,6 +91,9 @@ public final class SkyLogin extends JavaPlugin {
         }
         if (commandLogFilter != null) {
             commandLogFilter.deactivate();
+        }
+        if (bungeeBridge != null) {
+            bungeeBridge.unregister();
         }
         StartupBanner.printDisable(this);
     }

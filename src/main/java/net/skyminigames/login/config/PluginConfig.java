@@ -49,6 +49,7 @@ public final class PluginConfig {
     private final int messageIntervalSeconds;
     private final boolean applyBlindness;
     private final boolean countdownInXpBar;
+    private final boolean showScoreboard;
     private final Set<String> allowedCommands;
 
     // sounds (null = disabled)
@@ -67,6 +68,12 @@ public final class PluginConfig {
     private final int antiBotWindowSeconds;
     private final int antiBotAttackDurationSeconds;
     private final int antiBotRejoinDelaySeconds;
+
+    // bungeecord (network mode)
+    /** {@code null} = "auto": follow spigot.yml's settings.bungeecord. */
+    private final Boolean bungeeEnabled;
+    private final String bungeeSendTo;
+    private final int bungeeDelayTicks;
 
     public PluginConfig(FileConfiguration config) {
         this(config, Logger.getLogger("SkyLogin"));
@@ -97,6 +104,7 @@ public final class PluginConfig {
         messageIntervalSeconds = Math.max(0, config.getInt("login.message-interval", 0));
         applyBlindness = config.getBoolean("login.apply-blindness", false);
         countdownInXpBar = config.getBoolean("login.show-countdown-in-xp-bar", true);
+        showScoreboard = config.getBoolean("login.show-scoreboard", true);
         allowedCommands = lowerCaseSet(config.getStringList("login.allowed-commands"));
 
         welcomeSound = SoundEffect.parse(config.getConfigurationSection("sounds.welcome"), logger);
@@ -112,6 +120,10 @@ public final class PluginConfig {
         antiBotWindowSeconds = Math.max(1, config.getInt("antibot.window-seconds", 10));
         antiBotAttackDurationSeconds = Math.max(1, config.getInt("antibot.attack-duration-seconds", 60));
         antiBotRejoinDelaySeconds = Math.max(1, config.getInt("antibot.rejoin-delay-seconds", 5));
+
+        bungeeEnabled = config.isBoolean("bungeecord.enabled") ? config.getBoolean("bungeecord.enabled") : null;
+        bungeeSendTo = config.getString("bungeecord.send-to", "lobby");
+        bungeeDelayTicks = Math.max(0, config.getInt("bungeecord.delay-ticks", 20));
     }
 
     private static Set<String> lowerCaseSet(List<String> values) {

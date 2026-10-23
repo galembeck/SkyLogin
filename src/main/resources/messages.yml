@@ -23,25 +23,53 @@ title:
     fade-out: 10
   after-register:
     title: "&6&lSKY MINIGAMES"
-    subtitle: "&fConta registrada com sucesso!"
+    subtitle: "&fRegistrado! Redirecionando..."
     fade-in: 0
     stay: 40
     fade-out: 10
   after-login:
     title: "&6&lSKY MINIGAMES"
-    subtitle: "&fAutenticado com sucesso!"
+    subtitle: "&fAutenticado! Redirecionando..."
     fade-in: 0
     stay: 40
     fade-out: 10
+
+# Placar lateral exibido até o jogador fazer login. Título até 32 caracteres, linhas até 40, no máximo 15 linhas.
+scoreboard:
+  title: "&6&lSKY MINIGAMES"
+  register:
+    - ""
+    - " &fAutentique-se!"
+    - " &7Use /login para"
+    - " &7se autenticar."
+    - ""
+    - " &fRegistre-se!"
+    - " &7Use /register para"
+    - " &7se registrar."
+    - ""
+    - "&ewww.skyminigames.com"
+  login:
+    - ""
+    - " &fAutentique-se!"
+    - " &7Use /login para"
+    - " &7se autenticar."
+    - ""
+    - " &fRegistre-se!"
+    - " &7Use /register para"
+    - " &7se registrar."
+    - ""
+    - "&ewww.skyminigames.com"
 
 register:
   # Shown once, when a new player joins for the first time
   welcome:
     - ""
-    - "    &6&lSKY MINIGAMES"
+    - "  &6&lSKY MINIGAMES &8• &eÁrea de entrada"
+    - "  &7Seja bem-vindo ao Sky Minigames!"
     - ""
-    - "    &fBem-vindo! Para se registrar em nosso"
-    - "    &fservidor utilize o comando &e/register <senha> <senha>&f."
+    - "  &fUtilize &e/register <senha> <senha> &fpara registrar-se em nosso servidor."
+    - ""
+    - "&fDesejamos que tenha uma ótima experiência! &c❤"
     - ""
   # Repeated every few seconds until the player registers
   request: "&eRegistre-se utilizando &f/register <senha> <senha>&e."
@@ -55,11 +83,16 @@ login:
   # Shown when a registered player joins
   welcome:
     - ""
-    - "    &6&lSKY MINIGAMES"
+    - "  &6&lSKY MINIGAMES &8• &eÁrea de entrada"
+    - "  &7Seja bem-vindo ao Sky Minigames!"
     - ""
-    - "    &fBem-vindo de volta, &e{player}&f! Para acessar"
-    - "    &fsua conta, utilize o comando &e/login <senha>&f."
+    - "  &fUtilie &e/login <senha> &fpara autenticar-se em nosso servidor."
+    - "  &fUtilize &e/mudarsenha <senha atual> <nova senha> &fpara alterar"
+    - "  &fsua senha."
     - ""
+    - "&fDesejamos que tenha uma ótima experiência! &c❤"
+    - ""
+
   request: "&eAutentique-se utilizando &f/login <senha>&e."
   usage: "&cUtilize: &f/login <senha>"
   success: "&aAutenticado com sucesso! Redirecionando..."

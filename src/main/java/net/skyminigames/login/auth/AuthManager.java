@@ -6,6 +6,7 @@ import net.skyminigames.login.config.PluginConfig;
 import net.skyminigames.login.config.SoundEffect;
 import net.skyminigames.login.message.Messages;
 import net.skyminigames.login.model.Account;
+import net.skyminigames.login.util.LoginScoreboard;
 import net.skyminigames.login.util.NamedThreadFactory;
 import net.skyminigames.login.util.TitleSender;
 import org.bukkit.entity.Player;
@@ -151,6 +152,7 @@ public final class AuthManager {
         } else {
             // Restore speed / XP before the server saves the player's data
             removeRestrictions(player, session);
+            LoginScoreboard.hide(player);
             TitleSender.reset(player);
         }
     }
@@ -164,6 +166,10 @@ public final class AuthManager {
             player.sendMessage(line);
         }
         sendPromptTitle(player, session);
+        if (config.isShowScoreboard()) {
+            LoginScoreboard.show(player, messages.raw("scoreboard.title"),
+                    messages.lines(session.isRegistered() ? "scoreboard.login" : "scoreboard.register", "player", player.getName()));
+        }
         playSound(player, config.getWelcomeSound());
     }
 
@@ -185,9 +191,13 @@ public final class AuthManager {
     public void completeAuthentication(Player player, AuthSession session, String chatPath, String titleKey, SoundEffect sound) {
         session.setAuthenticated(true);
         removeRestrictions(player, session);
+        LoginScoreboard.hide(player);
         TitleSender.send(player, messages.title(titleKey));
         player.sendMessage(messages.get(chatPath));
         playSound(player, sound);
+        if (plugin.getBungeeBridge() != null) {
+            plugin.getBungeeBridge().onAuthenticated(player);
+        }
     }
 
     /** Saves the IP and time of a successful login (used for sessions). */
@@ -275,6 +285,7 @@ public final class AuthManager {
                 saveLastSeen(session);
             } else {
                 removeRestrictions(player, session);
+                LoginScoreboard.hide(player);
                 TitleSender.reset(player);
             }
         }
